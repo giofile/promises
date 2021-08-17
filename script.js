@@ -18,41 +18,44 @@ testNum(34)
 .catch(result => console.log(error));
 
 
+const makeAllCaps = (words) => {
+  return new Promise((resolve, reject) => {
+    if (
+      words.every((word) => {
+        return typeof word === "string";
+      })
+    ) {
+      resolve(
+        words.map((word) => {
+          return word.toUpperCase();
+        })
+      );
+    } else {
+      reject("Expected array of strings");
+    }
+  });
+};
 
-const makeAllCaps = words =>{
-    return new Promise((resolve, reject)=>{
-        if(words){
-            resolve(words.sort())
-        }else{
-            reject('strings only')
-        }
+const sortWords = (words) => {
+  return new Promise((resolve, reject) => {
+    if (words) {
+      resolve(words.sort());
+    } else {
+      reject("Expected array of strings");
+    }
+  });
+};
 
-    })
-}
+const arrayOfWords = ["cucumber", "tomatos", "avocado"];
+const complicatedArray = ["cucumber", 44, true];
 
-
-const sortWords = words => {
-    return new Promise((resolve, reject)=>{
-        if (words){
-            resolve(words.sort())
-        }else{
-            reject('strings only')
-        }
-    })
-}
-
-
-
-const arrayOfWords = ['cucumber', 'tomatos', 'avocado'];
-
+// call both functions, chain them together and log the result to the console
 makeAllCaps(arrayOfWords)
-.then(sortWords(arrayOfWords))
-.then(result => console.log(result))
-.catch(error => console.log(error));
-
-const complicatedArray = ['cucumber', 44, true];
+  .then((capitalizedWords) => sortWords(capitalizedWords))
+  .then((sortedWords) => console.log(sortedWords))
+  .catch((error) => console.log(error));
 
 makeAllCaps(complicatedArray)
-.then(sortWords(complicatedArray))
-.then(result => console.log(result))
-.catch(error => console.log(error));
+  .then((capitalizedWords) => sortWords(capitalizedWords))
+  .then((sortedWords) => console.log(sortedWords))
+  .catch((error) => console.log(error));
